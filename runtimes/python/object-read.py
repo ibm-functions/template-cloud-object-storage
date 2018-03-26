@@ -28,6 +28,4 @@ def getParamsCOS(args):
   params = {}
   params['Bucket'] = args['Bucket']
   params['Key'] = args['Key']
-
-  # delete params.__bx_creds
   return {'cos':cos, 'params':params}
