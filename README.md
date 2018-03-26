@@ -16,7 +16,7 @@ This template is available in node.js version 8 and 6.
 
 ## Configure CLI
 - Make sure to `bx login` if not already login
-- Install IBM Functions plugin via internal beta build
+- Install IBM Functions CLI plugin 
 ```
 bx plugin install cloud-functions
 ```
