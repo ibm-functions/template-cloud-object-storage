@@ -57,12 +57,14 @@ EDGE_HOST=$(grep '^edge.host=' $WHISKPROPS_FILE | cut -d'=' -f2)
 export OPENWHISK_HOME=$WHISKDIR
 
 # Place this template in correct location to be included in packageDeploy
-mkdir -p $PACKAGESDIR/preInstalled/ibm-functions
-cp -r ${ROOTDIR} $PACKAGESDIR/preInstalled/ibm-functions/
+# TODO
+#mkdir -p $PACKAGESDIR/preInstalled/ibm-functions
+#cp -r ${ROOTDIR} $PACKAGESDIR/preInstalled/ibm-functions/
 
 # Install the deploy package
-cd $DEPLOYDIR/packages
-source $DEPLOYDIR/packages/installCatalog.sh $AUTH_KEY $EDGE_HOST $WSK_CLI
+# TODO
+#cd $DEPLOYDIR/packages
+#source $DEPLOYDIR/packages/installCatalog.sh $AUTH_KEY $EDGE_HOST $WSK_CLI
 
 # Test
 # TODO Enable tests
