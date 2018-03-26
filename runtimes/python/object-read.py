@@ -31,3 +31,4 @@ def getParamsCOS(args):
 
   # delete params.__bx_creds;
   return {'cos':cos, 'params':params};
+  

@@ -32,3 +32,4 @@ def getParamsCOS(args):
   params['Body'] = args['Body']
   # delete params.__bx_creds;
   return {'cos':cos, 'params':params};
+  
