@@ -1,10 +1,14 @@
 #!/bin/bash
 # Build script for Travis-CI.
 
+set -e
+
 SCRIPTDIR=$(cd $(dirname "$0") && pwd)
-ROOTDIR="$SCRIPTDIR/../../.."
-WHISKDIR="$ROOTDIR/openwhisk"
+ROOTDIR="$SCRIPTDIR/../.."
+HOMEDIR="$SCRIPTDIR/../../../"
+WHISKDIR="$HOMEDIR/openwhisk"
 PACKAGESDIR="$WHISKDIR/catalog/extra-packages"
+DEPLOYDIR="$PACKAGESDIR/packageDeploy"
 IMAGE_PREFIX="testing"
 
 # Set Environment
@@ -54,11 +58,11 @@ export OPENWHISK_HOME=$WHISKDIR
 
 # Place this template in correct location to be included in packageDeploy
 mkdir -p $PACKAGESDIR/preInstalled/ibm-functions
-cp -r $ROOTDIR/template-get-external-resource $PACKAGESDIR/preInstalled/ibm-functions/
+cp -r ${ROOTDIR} $PACKAGESDIR/preInstalled/ibm-functions/
 
 # Install the deploy package
-cd $PACKAGESDIR/packageDeploy/packages
-source $PACKAGESDIR/packageDeploy/packages/installCatalog.sh $AUTH_KEY $EDGE_HOST $WSK_CLI
+cd $DEPLOYDIR/packages
+source $DEPLOYDIR/packages/installCatalog.sh $AUTH_KEY $EDGE_HOST $WSK_CLI
 
 # Test
 # TODO Enable tests
