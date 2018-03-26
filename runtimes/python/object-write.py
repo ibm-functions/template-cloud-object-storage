@@ -12,8 +12,7 @@ def main(args):
     Bucket=params['Bucket'],
     Key=params['Key'],
   )
-  stringObject = str(object)
-  return {'data': stringObject.encode(encoding='UTF-8')}
+  return {'data': str(object).encode(encoding='UTF-8')}
 
 
 def getParamsCOS(args):
