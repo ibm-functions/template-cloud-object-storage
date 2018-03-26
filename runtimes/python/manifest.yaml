@@ -1,12 +1,13 @@
 packages:
-  cloud-object-storage:
+  $PACKAGE_NAME:
+    namespace: _
     actions:
       object-read:
-        function: python/object-read.py
+        function: object-read.py
         runtime: python-jessie:3
       object-write:
-        function: python/object-write.py
+        function: object-write.py
         runtime: python-jessie:3
       object-delete:
-        function: python/object-delete.py
+        function: object-delete.py
         runtime: python-jessie:3
