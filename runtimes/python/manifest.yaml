@@ -1,0 +1,12 @@
+packages:
+  cloud-object-storage:
+    actions:
+      object-read:
+        function: python/object-read.py
+        runtime: python-jessie:3
+      object-write:
+        function: python/object-write.py
+        runtime: python-jessie:3
+      object-delete:
+        function: python/object-delete.py
+        runtime: python-jessie:3
