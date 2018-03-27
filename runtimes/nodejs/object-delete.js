@@ -17,7 +17,7 @@ function main(args) {
 
 
 
-function getPgetParamsCOS(args, COS) {
+function getParamsCOS(args, COS) {
   let Bucket = args.bucket || args.Bucket;
   let Key = args.key || args.Key;
   let endpoint = args.endpoint || 's3-api.us-geo.objectstorage.softlayer.net';
