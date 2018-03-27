@@ -1,6 +1,5 @@
 packages:
-  $PACKAGE_NAME:
-    namespace: _
+  cloud-object-storage:
     actions:
       object-read:
         function: object-read.js
