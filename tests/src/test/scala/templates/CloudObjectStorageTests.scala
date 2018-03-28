@@ -68,8 +68,8 @@ class CloudObjectStorageTests extends TestHelpers
 
   behavior of "Cloudant Object Storage Template"
 
-  // test to create the nodejs 8 cloud object storage template from github url.  Will use preinstalled folder.
-  it should "create the nodejs 8 cloud object storage template from github url" in {
+  // test to create the nodejs 8 Cloud Object Storage template from github url.  Will use preinstalled folder.
+  it should "create the nodejs 8 Cloud Object Storage template from github url" in {
 
     // create unique asset names
     val timestamp: String = System.currentTimeMillis.toString
@@ -114,8 +114,8 @@ class CloudObjectStorageTests extends TestHelpers
     wsk.pkg.delete(nodejs8Package)
   }
 
-  // test to create the nodejs 6 cloud object storage template from github url.  Will use preinstalled folder.
-  it should "create the nodejs 6 cloud object storage template from github url" in {
+  // test to create the nodejs 6 Cloud Object Storage template from github url.  Will use preinstalled folder.
+  it should "create the nodejs 6 Cloud Object Storage template from github url" in {
 
     // create unique asset names
     val timestamp: String = System.currentTimeMillis.toString
@@ -160,8 +160,8 @@ class CloudObjectStorageTests extends TestHelpers
     wsk.pkg.delete(nodejs6Package)
   }
 
-  // test to create the python cloud object storage template from github url.  Will use preinstalled folder.
-  it should "create the python cloud object storage template from github url" in {
+  // test to create the python Cloud Object Storage template from github url.  Will use preinstalled folder.
+  it should "create the python Cloud Object Storage template from github url" in {
 
     // create unique asset names
     val timestamp: String = System.currentTimeMillis.toString
