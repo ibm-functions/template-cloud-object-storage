@@ -5,7 +5,7 @@ set -e
 
 SCRIPTDIR=$(cd $(dirname "$0") && pwd)
 ROOTDIR="$SCRIPTDIR/../.."
-HOMEDIR="$SCRIPTDIR/../../../"
+HOMEDIR="$SCRIPTDIR/../../.."
 WHISKDIR="$HOMEDIR/openwhisk"
 PACKAGESDIR="$WHISKDIR/catalog/extra-packages"
 DEPLOYDIR="$PACKAGESDIR/packageDeploy"
@@ -17,7 +17,6 @@ export OPENWHISK_HOME=$WHISKDIR
 cd $WHISKDIR
 
 tools/build/scanCode.py "$SCRIPTDIR/../.."
-
 
 # Build Openwhisk
 ./gradlew distDocker -PdockerImagePrefix=${IMAGE_PREFIX}
@@ -53,8 +52,6 @@ WSK_CLI=$WHISKDIR/bin/wsk
 AUTH_KEY=$(cat $WHISKDIR/ansible/files/auth.whisk.system)
 EDGE_HOST=$(grep '^edge.host=' $WHISKPROPS_FILE | cut -d'=' -f2)
 
-# Set Environment
-export OPENWHISK_HOME=$WHISKDIR
 
 # Place this template in correct location to be included in packageDeploy
 mkdir -p $PACKAGESDIR/preInstalled/ibm-functions
@@ -65,5 +62,5 @@ cd $DEPLOYDIR/packages
 source $DEPLOYDIR/packages/installCatalog.sh $AUTH_KEY $EDGE_HOST $WSK_CLI
 
 # Test
-cd $ROOTDIR/template-cloud-object-storage
+cd $ROOTDIR
 ./gradlew :tests:test
