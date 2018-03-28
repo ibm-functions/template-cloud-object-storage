@@ -1,8 +1,8 @@
-# This action will delete from cloud object storage.  If the Cloud Object Storage
+# This action will delete from Cloud Object Storage.  If the Cloud Object Storage
 # service is not bound to this action or to the package containing this action,
 # then you must provide the service information as argument input to this function.
-# Cloud Functions actions accept a single parameter, which must be a JSON object
-
+# Cloud Functions actions accept a single parameter, which must be a JSON object.
+#
 # In this case, the params variable will look like:
 #   {
 #     "Bucket": "your COS bucket name",
