@@ -1,3 +1,13 @@
+# This action will read from cloud object storage.  If the Cloud Object Storage
+# service is not bound to this action or to the package containing this action,
+# then you must provide the service information as argument input to this function.
+# In this case, the params variable will look like:
+#   {
+#     "Bucket": "your COS bucket name",
+#     "Key": "Name of the object to read"
+#   }
+
+
 import sys
 import json
 import ibm_boto3
