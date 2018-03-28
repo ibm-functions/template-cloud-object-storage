@@ -4,7 +4,7 @@
  * then you must provide the service information as argument input to this function.
  * @param Cloud Functions actions accept a single parameter, which must be a JSON object.
  *
- * In this case, the params variable will look like:
+ * In this case, the args variable will look like:
  *   {
  *     "Bucket": "your COS bucket name",
  *     "Key": "Name of the object to delete"
