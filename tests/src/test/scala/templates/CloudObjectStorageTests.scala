@@ -51,7 +51,6 @@ class CloudObjectStorageTests extends TestHelpers
   val actionRead = "object-read"
   val actionDelete = "object-delete"
   val packageName = "myPackage"
-  //val fakeChangesAction = "openwhisk-cloudant/changes"
   val deployAction = "/whisk.system/deployWeb/wskdeploy"
   val deployActionURL = s"https://${wskprops.apihost}/api/v1/web${deployAction}.http"
 
