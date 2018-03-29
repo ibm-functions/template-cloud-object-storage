@@ -10,12 +10,12 @@ This repository allows you to deploy a Cloud Object Storage Package for IBM Func
 The package contains a set of simple functions to get your started composing IBM Functions Applications.
 
 ### Available Languages
-This template is available in node.js version 8 and 6.
+This template is available in Node.js 8, Node.js 6, and Python 3.
 
 # Deploy Cloud Object Storage Package with IBM Cloud Command Line Interface (CLI)
 
 ## Configure CLI
-- Make sure to `bx login` if not already login
+- Make sure to execute `bx login` if not already logged in
 - Install IBM Functions CLI plugin
 ```
 bx plugin install cloud-functions
