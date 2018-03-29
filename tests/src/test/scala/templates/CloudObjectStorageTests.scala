@@ -46,7 +46,7 @@ class CloudObjectStorageTests extends TestHelpers
   val successStatus =
     """"status":"success""""
 
-  val deployTestRepo = "https://github.com/beemarie/template-cloud-object-storage"
+  val deployTestRepo = "https://github.com/ibm-functions/template-cloud-object-storage"
   val actionWrite = "object-write"
   val actionRead = "object-read"
   val actionDelete = "object-delete"
