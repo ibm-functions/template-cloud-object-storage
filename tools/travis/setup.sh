@@ -8,8 +8,8 @@ HOMEDIR="$SCRIPTDIR/../../../"
 DEPLOYDIR="$HOMEDIR/openwhisk/catalog/extra-packages/packageDeploy"
 
 # jshint support
-# sudo apt-get -y install nodejs npm
-# sudo npm install -g jshint
+sudo apt-get -y install nodejs npm
+sudo npm install -g jshint
 
 # clone utilties repo. in order to run scanCode.py
 cd ${HOMEDIR}
