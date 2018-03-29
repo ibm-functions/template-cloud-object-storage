@@ -15,7 +15,7 @@ This template is available in Node.js 8, Node.js 6, and Python 3.
 # Deploy Cloud Object Storage Package with IBM Cloud Command Line Interface (CLI)
 
 ## Configure CLI
-- Make sure to `bx login` if not already logged in
+- Make sure to execute `bx login` if not already logged in
 - Install IBM Functions CLI plugin
 ```
 bx plugin install cloud-functions
@@ -29,7 +29,7 @@ bx wsk list
 Use wskdeploy to deploy using [`manifest.yml`](./manifest.yml)
 ```
 pushd runtimes/nodejs/
-wskdeploy
+PACKAGE_NAME=cloud-object-storage wskdeploy
 popd
 ```
 
