@@ -18,8 +18,6 @@ cd $WHISKDIR
 
 tools/build/scanCode.py "$SCRIPTDIR/../.."
 
-jshint --exclude tests "$SCRIPTDIR/../.."
-
 
 # Build Openwhisk
 ./gradlew distDocker -PdockerImagePrefix=${IMAGE_PREFIX}
