@@ -16,7 +16,7 @@ This template is available in node.js version 8 and 6.
 
 ## Configure CLI
 - Make sure to `bx login` if not already login
-- Install IBM Functions CLI plugin 
+- Install IBM Functions CLI plugin
 ```
 bx plugin install cloud-functions
 ```
@@ -29,7 +29,7 @@ bx wsk list
 Use wskdeploy to deploy using [`manifest.yml`](./manifest.yml)
 ```
 pushd runtimes/nodejs/
-wskdeploy
+PACKAGE_NAME=cloud-object-storage wskdeploy
 popd
 ```
 
