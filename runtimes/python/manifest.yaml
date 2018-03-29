@@ -1,5 +1,6 @@
 packages:
-  cloud-object-storage:
+  $PACKAGE_NAME:
+    namespace: _
     actions:
       object-read:
         function: object-read.py
