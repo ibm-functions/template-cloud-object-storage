@@ -125,7 +125,7 @@ class CloudObjectStorageTests extends TestHelpers
 
     makePostCallWithExpectedResult(JsObject(
       "gitUrl" -> JsString(deployTestRepo),
-      "manifestPath" -> JsString(node8RuntimePath),
+      "manifestPath" -> JsString(node6RuntimePath),
       "envData" -> JsObject(
         "PACKAGE_NAME" -> JsString(nodejs6Package)
       ),
@@ -171,7 +171,7 @@ class CloudObjectStorageTests extends TestHelpers
 
     makePostCallWithExpectedResult(JsObject(
       "gitUrl" -> JsString(deployTestRepo),
-      "manifestPath" -> JsString(node8RuntimePath),
+      "manifestPath" -> JsString(pythonRuntimePath),
       "envData" -> JsObject(
         "PACKAGE_NAME" -> JsString(pythonPackage)
       ),
