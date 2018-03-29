@@ -180,13 +180,13 @@ class CloudObjectStorageTests extends TestHelpers
     ), successStatus, 200);
 
     withActivation(wsk.activation, wsk.action.invoke(pythonActionWrite)) {
-      _.response.result.get.toString should include("Cannot read property 'cloud-object-storage' of undefined")
+      _.response.result.get.toString should include("The action did not return a dictionary.")
     }
     withActivation(wsk.activation, wsk.action.invoke(pythonActionRead)) {
-      _.response.result.get.toString should include("Cannot read property 'cloud-object-storage' of undefined")
+      _.response.result.get.toString should include("The action did not return a dictionary.")
     }
     withActivation(wsk.activation, wsk.action.invoke(pythonActionDelete)) {
-      _.response.result.get.toString should include("Cannot read property 'cloud-object-storage' of undefined")
+      _.response.result.get.toString should include("The action did not return a dictionary.")
     }
 
     val testActionWrite = wsk.action.get(pythonActionWrite)
