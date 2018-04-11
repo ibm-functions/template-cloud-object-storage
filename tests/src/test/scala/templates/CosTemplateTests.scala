@@ -52,7 +52,7 @@ class CloudantBlueTests extends TestHelpers
     val successStatus =
       """"status":"success""""
 
-    val deployTestRepo = "https://github.com/beemarie/template-cos"
+    val deployTestRepo = "https://github.com/ibm-functions/template-cloud-object-storage"
     val packageTestRepo = "https://github.com/ibm-functions/package-cloud-object-storage"
     val action1 = "initial-html"
     val action2 = "handle-form"
