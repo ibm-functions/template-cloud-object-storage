@@ -16,6 +16,12 @@ git clone --depth 1 https://github.com/apache/incubator-openwhisk-package-deploy
 
 cd openwhisk
 
+./gradlew \
+:common:scala:install \
+:core:controller:install \
+:core:invoker:install \
+:tests:install
+
 # use runtimes.json that defines python-jessie & IBM Node.js 8
 rm -f ansible/files/runtimes.json
 cp $HOMEDIR/template-cloud-object-storage/ansible/files/runtimes.json ansible/files/runtimes.json
