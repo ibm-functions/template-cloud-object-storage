@@ -1,79 +1,16 @@
 # template-cloud-object-storage
+# WIP DO NOT USE IN PRODUCTION
 [![Build Status](https://travis-ci.org/ibm-functions/template-cloud-object-storage.svg?branch=master)](https://travis-ci.org/ibm-functions/template-cloud-object-storage)
 
-# Work in progress !!
-
-Do not use for production.
-
 ### Overview
-This repository allows you to deploy a Cloud Object Storage Package for IBM Functions.
-The package contains a set of simple functions to get your started composing IBM Functions Applications.
+You can use this template to deploy some IBM Cloud Functions assets for you.  The assets created by this template are described in the manifest.yaml file, which can be found at `template-cloud-object-storage/runtimes/nodejs/manifest.yaml`
+
+This template expects there to be a cloud-object-storage package containing an object-write function.  You can find and deploy that package from [here.](https://github.com/ibm-functions/package-cloud-object-storage)
+
+This template will deploy a web action containing some html.  That html is a form, which will pass its data to the handleForm.js action.  When the form data is parsed by handle form, the image uploaded in the form is stored in the Cloud Object Storage instance.
+
+You can use the wskdeploy tool to deploy this asset yourself using the manifest and available code.
+
 
 ### Available Languages
-This template is available in Node.js 8, Node.js 6, and Python 3.
-
-# Deploy Cloud Object Storage Package with IBM Cloud Command Line Interface (CLI)
-
-## Configure CLI
-- Make sure to execute `bx login` if not already logged in
-- Install IBM Functions CLI plugin
-```
-bx plugin install cloud-functions
-```
-Make sure you are authenticated with IBM Functions and can list entities without errors
-```
-bx wsk list
-```
-## Deploy
-
-Use wskdeploy to deploy using [`manifest.yml`](./manifest.yml)
-```
-pushd runtimes/nodejs/
-PACKAGE_NAME=cloud-object-storage wskdeploy
-popd
-```
-
-This will create a new package `cloud-object-storage` with the following actions:
-- cloud-object-storage/object-read
-- cloud-object-storage/object-write
-- cloud-object-storage/object-delete
-
-**Future**
- The utility `wskdeploy` will be integrated into a new `wsk` plugin command `bx wsk deploy`.
-For now download from here [wskdeploy download](https://github.com/apache/incubator-openwhisk-wskdeploy/releases) and add `wskdeploy` to your PATH
-
-## Bind service credentials
-
-```
-bx wsk service bind cloud-object-storage cloud-object-storage
-```
-
-
-## Test
-Write a file `data.txt` into bucket `csantana`
-```
-bx wsk action invoke cloud-object-storage/object-write -b -p Bucket csantana -p Key data.txt -p Body "Hello World"
-```
-Read a file `data.txt` from bucket `csantana`
-```
-bx wsk action invoke cloud-object-storage/object-read -b -p Bucket csantana -p Key data.txt
-```
-Delete a file `data.txt` from bucket `csantana`
-```
-bx wsk action invoke cloud-object-storage/object-delete -b -p Bucket csantana -p Key data.txt
-```
-
-## CI/CD
-Use helper script [`deploy.sh`](./deploy.sh)
-```
-deploy.sh
-```
-
-# Deploy Cloud Object Storage Package with IBM Cloud Console
-
-** Comming Soon**
-Visit [IBM Functions Templates](https://console.bluemix.net/openwhisk/create/template)
-
-
-### License
-Apache-2.0
+This template is available in node.js.

@@ -1,0 +1,17 @@
+{
+  "_id": "",
+  "name": "Upload an Image",
+  "description": "This is a sequence of actions to enable users to upload images to Cloud Object Storage",
+  "long_description": "This template will provide you with an html form to allow users to upload images to your Cloud Object Storage instance.",
+  "url": "https://github.com/ibm-functions/template-cloud-object-storage",
+  "runtimes": [
+    {
+      "name": "Node.js 6",
+      "kind": "nodejs:6",
+      "type": "nodejs"
+    },
+  ],
+  "categories": [
+    "cloud object storage",
+  ]
+}
