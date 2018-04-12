@@ -1,13 +1,18 @@
-packages:
-  $PACKAGE_NAME:
-    namespace: _
-    actions:
-      object-read:
-        function: object-read.js
-        runtime: nodejs:8
-      object-write:
-        function: object-write.js
-        runtime: nodejs:8
-      object-delete:
-        function: object-delete.js
-        runtime: nodejs:8
+project:
+  namespace: _
+  packages:
+    $PACKAGE_NAME:
+      actions:
+        form-completed:
+          function: actions/formCompleteHtml.js
+          runtime: nodejs:8
+        handle-form:
+          function: actions/handleForm.js
+          runtime: nodejs:8
+        initial-html:
+          function: actions/initialHtml.js
+          runtime: nodejs:8
+          web-export: true
+      sequences:
+        upload-a-file-sequence:
+          actions: handle-form, cloud-object-storage/object-write, form-completed
