@@ -36,7 +36,7 @@ function getHtml(theSignedUrlPut, theSignedUrlGet) {
             <li>Add CORS policy to bucket</li>
         </ul>
         <h4> Current Profile Image:</h4>
-        <img class="my-image"></img>
+        <img class="my-image" style="max-width: 200px; height: auto;"></img>
         <h4> Upload a file:</h4>
         <form id="myform" enctype="multipart/form-data">
           <input id="theFile" type="file" name="body" required>
