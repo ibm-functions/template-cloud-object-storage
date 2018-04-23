@@ -1,6 +1,9 @@
 function main(args) {
   return html(
     `<html>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      </head>
       <body>
         <!-- Simple form which will send a POST request -->
         <form action="./upload-a-file-sequence" method="post" enctype="multipart/form-data">
