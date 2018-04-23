@@ -18,7 +18,6 @@ async function main(args) {
       console.log(err);
       throw err;
   }
-  console.log("results", results[1].response.result.data)
   return getHtml(results[0].response.result.data, results[1].response.result.data)
 }
 
@@ -45,7 +44,6 @@ function getHtml(theSignedUrlPut, theSignedUrlGet) {
         <button onclick="getUrlAndUploadImage()"> Upload </button>
         <script>
           function setCurrentProfileImage() {
-            console.log("CALLING")
             fetch('${theSignedUrlGet}', {
                 method: 'GET',
                 headers: {
@@ -58,7 +56,6 @@ function getHtml(theSignedUrlPut, theSignedUrlGet) {
             })
             .then(response => response.blob())
             .then((response) => {
-              console.log("RESPONSE", response)
               var objectURL = URL.createObjectURL(response);
               var myImage = document.querySelector('.my-image');
               myImage.src = objectURL;
