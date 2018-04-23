@@ -54,10 +54,7 @@ class CloudantBlueTests extends TestHelpers
 
     val deployTestRepo = "https://github.com/ibm-functions/template-cloud-object-storage"
     val packageTestRepo = "https://github.com/ibm-functions/package-cloud-object-storage"
-    val action1 = "initial-html"
-    val action2 = "handle-form"
-    val action3 = "form-completed"
-    val sequenceName = "upload-a-file-sequence"
+    val htmlAction = "initial-html"
     val packageName = "myPackage"
     val binding = "cloud-object-storage"
     val objectWriteAction = binding + "/" + "object-write"
@@ -82,11 +79,7 @@ class CloudantBlueTests extends TestHelpers
       // create unique asset names
       val timestamp: String = System.currentTimeMillis.toString
       val nodejs8Package = packageName + timestamp
-      val nodejs8Action1 = nodejs8Package + "/" + action1
-      val nodejs8Action2 = nodejs8Package + "/" + action2
-      val nodejs8Action3 = nodejs8Package + "/" + action3
-      val nodejs8Sequence = nodejs8Package + "/" + sequenceName
-
+      val nodejs8htmlAction = nodejs8Package + "/" + htmlAction
 
       // post call to deploy COS package
       makePostCallWithExpectedResult(JsObject(
@@ -107,31 +100,11 @@ class CloudantBlueTests extends TestHelpers
         "wskAuth" -> JsString(wskprops.authKey)
       ), successStatus, 200)
 
-      // check that sequence was created and contains correct actions
-      val compValue = JsArray(
-        JsString("/" + namespace + "/" + nodejs8Action2),
-        JsString("/" + namespace + "/" + objectWriteAction),
-        JsString("/" + namespace + "/" + nodejs8Action3)
-      )
-      val sequence = wsk.action.get(nodejs8Sequence)
-      verifyActionSequence(sequence, nodejs8Sequence, compValue, JsString("sequence"))
-
       // verify action exists as correct kind
-      val testaction1 = wsk.action.get(nodejs8Action1)
-      verifyAction(testaction1, nodejs8Action1, JsString(nodejs8kind))
+      val testhtmlAction = wsk.action.get(nodejs8htmlAction)
+      verifyAction(testhtmlAction, nodejs8htmlAction, JsString(nodejs8kind))
 
-      // verify action exists as correct kind
-      val testaction2 = wsk.action.get(nodejs8Action2)
-      verifyAction(testaction2, nodejs8Action2, JsString(nodejs8kind))
-
-      // verify action exists as correct kind
-      val testaction3 = wsk.action.get(nodejs8Action3)
-      verifyAction(testaction3, nodejs8Action3, JsString(nodejs8kind))
-
-      wsk.action.delete(nodejs8Action1)
-      wsk.action.delete(nodejs8Action2)
-      wsk.action.delete(nodejs8Action3)
-      wsk.action.delete(nodejs8Sequence)
+      wsk.action.delete(nodejs8htmlAction)
       wsk.pkg.delete(nodejs8Package)
       wsk.action.delete(objectWriteAction)
       wsk.action.delete(objectReadAction)
@@ -155,58 +128,9 @@ class CloudantBlueTests extends TestHelpers
       }
     }
 
-    it should "invoke nodejs 8 handleForm.js with no input and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-      val timestamp: String = System.currentTimeMillis.toString
-      val name = "handleForm" + timestamp
-      val file = Some(new File(nodejs8folder, "handleForm.js").toString())
-
-
-      assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-        action.create(name, file, kind = Some(nodejs8kind))
-      }
-
-      withActivation(wsk.activation, wsk.action.invoke(name)) {
-        _.response.result.get.toString should include("Cannot read property 'content-type' of undefined")
-      }
-    }
-
-    it should "invoke nodejs 8 formCompleteHtml.js with no input and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-      val timestamp: String = System.currentTimeMillis.toString
-      val name = "formCompleted" + timestamp
-      val file = Some(new File(nodejs8folder, "formCompleteHtml.js").toString())
-      assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-        action.create(name, file, kind = Some(nodejs8kind))
-      }
-
-      withActivation(wsk.activation, wsk.action.invoke(name)) {
-        _.response.result.get.toString should include("Thank you for your input")
-      }
-    }
-
-    private def verifyRule(ruleListResult: RunResult, ruleName: String, triggerName: String, actionName: String) = {
-      val actionNameWithNoPackage = actionName.split("/").last
-      val rule = wskRest.rule.get(ruleName)
-      rule.getField("name") shouldBe ruleName
-      RestResult.getField(rule.getFieldJsObject("trigger"), "name") shouldBe triggerName
-      RestResult.getField(rule.getFieldJsObject("action"), "name") shouldBe actionNameWithNoPackage
-    }
-
-    private def verifyTriggerList(triggerListResult: RunResult, triggerName: String) = {
-      val triggerList = triggerListResult.stdout
-      val listOutput = triggerList.lines
-      listOutput.find(_.contains(triggerName)).get should include(triggerName)
-    }
-
     private def verifyAction(action: RunResult, name: String, kindValue: JsString): Unit = {
       val stdout = action.stdout
       assert(stdout.startsWith(s"ok: got action $name\n"))
-      wsk.parseJsonString(stdout).fields("exec").asJsObject.fields("kind") shouldBe kindValue
-    }
-
-    def verifyActionSequence(action: RunResult, name: String, compValue: JsArray, kindValue: JsString): Unit = {
-      val stdout = action.stdout
-      assert(stdout.startsWith(s"ok: got action $name\n"))
-      wsk.parseJsonString(stdout).fields("exec").asJsObject.fields("components") shouldBe compValue
       wsk.parseJsonString(stdout).fields("exec").asJsObject.fields("kind") shouldBe kindValue
     }
 
