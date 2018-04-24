@@ -7,6 +7,3 @@ project:
           function: actions/initialHtml.js
           runtime: nodejs:8
           web-export: true
-      sequences:
-        upload-a-file-sequence:
-          actions: initial-html
