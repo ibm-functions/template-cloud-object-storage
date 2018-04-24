@@ -9,4 +9,4 @@ project:
           web-export: true
       sequences:
         upload-a-file-sequence:
-          actions: initialHtml
+          actions: initial-html
