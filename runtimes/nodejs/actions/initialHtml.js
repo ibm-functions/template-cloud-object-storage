@@ -36,7 +36,7 @@ function getHtml(theSignedUrlPut, theSignedUrlGet) {
             <li>Add CORS policy to bucket</li>
         </ul>
         <h4> Current Profile Image:</h4>
-        <img class="my-image" style="max-width: 200px; height: auto;"></img>
+        <img src="http://via.placeholder.com/200x200" class="my-image" style="max-width: 200px; height: auto;"></img>
         <h4> Upload a file:</h4>
         <form id="myform" enctype="multipart/form-data">
           <input id="theFile" type="file" name="body" required>
@@ -56,9 +56,11 @@ function getHtml(theSignedUrlPut, theSignedUrlGet) {
             })
             .then(response => response.blob())
             .then((response) => {
-              var objectURL = URL.createObjectURL(response);
-              var myImage = document.querySelector('.my-image');
-              myImage.src = objectURL;
+              if(response.type != 'application/xml') {
+                  var objectURL = URL.createObjectURL(response);
+                  var myImage = document.querySelector('.my-image');
+                  myImage.src = objectURL;
+              }
             })
           }
           function getUrlAndUploadImage() {

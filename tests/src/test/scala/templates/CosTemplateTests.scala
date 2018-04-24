@@ -34,7 +34,7 @@ import scala.concurrent.duration.DurationInt
 import scala.language.postfixOps
 
 @RunWith(classOf[JUnitRunner])
-class CloudantBlueTests extends TestHelpers
+class COSTemplateTests extends TestHelpers
     with WskTestHelpers
     with BeforeAndAfterAll {
 
@@ -55,10 +55,9 @@ class CloudantBlueTests extends TestHelpers
     val objectWriteAction = binding + "/" + "object-write"
     val objectReadAction = binding + "/" + "object-read"
     val objectDeleteAction = binding + "/" + "object-delete"
+    val getSignedUrlAction = binding + "/" + "get-signed-url"
     val deployAction = "/whisk.system/deployWeb/wskdeploy"
     val deployActionURL = s"https://${wskprops.apihost}/api/v1/web${deployAction}.http"
-    val namespace = wsk.namespace.whois()
-
 
     //set parameters for deploy tests
     val nodejs8RuntimePath = "runtimes/nodejs"
@@ -104,6 +103,7 @@ class CloudantBlueTests extends TestHelpers
       wsk.action.delete(objectWriteAction)
       wsk.action.delete(objectReadAction)
       wsk.action.delete(objectDeleteAction)
+      wsk.action.delete(getSignedUrlAction)
       wsk.pkg.delete(binding)
     }
 
@@ -119,7 +119,7 @@ class CloudantBlueTests extends TestHelpers
       }
 
       withActivation(wsk.activation, wsk.action.invoke(name)) {
-        _.response.result.get.toString should include("COS Bucket Name")
+        _.response.result.get.toString should include("Current Profile Image:")
       }
     }
 
