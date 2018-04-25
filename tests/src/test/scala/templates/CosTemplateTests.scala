@@ -100,11 +100,6 @@ class COSTemplateTests extends TestHelpers
 
       wsk.action.delete(nodejs8htmlAction)
       wsk.pkg.delete(nodejs8Package)
-      wsk.action.delete(objectWriteAction)
-      wsk.action.delete(objectReadAction)
-      wsk.action.delete(objectDeleteAction)
-      wsk.action.delete(getSignedUrlAction)
-      wsk.pkg.delete(binding)
     }
 
     /**
@@ -121,6 +116,12 @@ class COSTemplateTests extends TestHelpers
       withActivation(wsk.activation, wsk.action.invoke(name)) {
         _.response.result.get.toString should include("Current Profile Image:")
       }
+
+      wsk.action.delete(objectWriteAction)
+      wsk.action.delete(objectReadAction)
+      wsk.action.delete(objectDeleteAction)
+      wsk.action.delete(getSignedUrlAction)
+      wsk.pkg.delete(binding)
     }
 
     private def verifyAction(action: RunResult, name: String, kindValue: JsString): Unit = {
