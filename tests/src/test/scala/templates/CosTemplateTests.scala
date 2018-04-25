@@ -64,10 +64,6 @@ class COSTemplateTests extends TestHelpers
     val nodejs8folder = "../runtimes/nodejs/actions"
     val nodejs8kind = "nodejs:8"
 
-    // get creds for COS
-    val creds = TestUtils.getVCAPcredentials("cloud-object-storage")
-
-
     behavior of "Cloud Object Storage Template"
 
     // test to create the nodejs 8 cloud object storage template from github url.  Will use preinstalled folder.
@@ -102,29 +98,11 @@ class COSTemplateTests extends TestHelpers
       verifyAction(testhtmlAction, nodejs8htmlAction, JsString(nodejs8kind))
 
       wsk.action.delete(nodejs8htmlAction)
-      wsk.pkg.delete(nodejs8Package)
-    }
-
-    /**
-      * Test the nodejs 8 "cloudant trigger" template
-      */
-    it should "invoke nodejs 8 initialHtml.js and get the result" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
-      val timestamp: String = System.currentTimeMillis.toString
-      val name = "initialHtml" + timestamp
-      val file = Some(new File(nodejs8folder, "initialHtml.js").toString())
-      assetHelper.withCleaner(wsk.action, name) { (action, _) =>
-        action.create(name, file, kind = Some(nodejs8kind))
-      }
-
-      withActivation(wsk.activation, wsk.action.invoke(name)) {
-        _.response.result.get.toString should include("Current Profile Image:")
-      }
-
       wsk.action.delete(objectWriteAction)
       wsk.action.delete(objectReadAction)
       wsk.action.delete(objectDeleteAction)
       wsk.action.delete(getSignedUrlAction)
-      wsk.pkg.delete(binding)
+      wsk.pkg.delete(nodejs8Package)
     }
 
     private def verifyAction(action: RunResult, name: String, kindValue: JsString): Unit = {
