@@ -64,6 +64,9 @@ class COSTemplateTests extends TestHelpers
     val nodejs8folder = "../runtimes/nodejs/actions"
     val nodejs8kind = "nodejs:8"
 
+    // get creds for COS
+    val creds = TestUtils.getVCAPcredentials("cloud-object-storage")
+
 
     behavior of "Cloud Object Storage Template"
 

@@ -9,15 +9,16 @@ async function main(args) {
   const blocking = true;
   const options = { ignore_certs: true };
   const ow = openwhisk(options);
-  const params = { key: fileName, operation: 'putObject' };
+  const params = { bucket: args.bucket, key: fileName, operation: 'putObject' };
   const putUrl = ow.actions.invoke({ actionName, blocking, params });
   params.operation = 'getObject';
   const getUrl = ow.actions.invoke({ actionName, blocking, params });
+  let results;
   try {
-      results = await Promise.all([putUrl, getUrl])
+    results = await Promise.all([putUrl, getUrl]);
   } catch (err) {
-      console.log(err);
-      throw err;
+    console.log(err);
+    throw err;
   }
   return getHtml(results[0].response.result.data, results[1].response.result.data)
 }
