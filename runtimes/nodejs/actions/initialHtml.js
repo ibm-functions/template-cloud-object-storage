@@ -15,7 +15,7 @@ async function main(args) {
     CORSRules: [{
       AllowedHeaders: ['*'],
       AllowedMethods: ['PUT', 'GET', 'DELETE'],
-      AllowedOrigins: ['*'],
+      AllowedOrigins: ['https://openwhisk.ng.bluemix.net'],
     }],
   };
   try {
@@ -55,7 +55,7 @@ function getHtml(theSignedUrlPut, theSignedUrlGet) {
             <li>Add CORS policy to bucket</li>
         </ul>
         <h4> Current Profile Image:</h4>
-        <img src="http://via.placeholder.com/200x200" class="my-image" style="max-width: 200px; height: auto;"></img>
+        <img src="https://via.placeholder.com/200x200" class="my-image" style="max-width: 200px; height: auto;"></img>
         <h4> Upload a file:</h4>
         <form id="myform" enctype="multipart/form-data">
           <input id="theFile" type="file" name="body" required>
