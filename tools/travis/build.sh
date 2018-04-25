@@ -14,7 +14,6 @@ cd $WHISKDIR
 
 tools/build/scanCode.py "$SCRIPTDIR/../.."
 
-
 # Build Openwhisk
 ./gradlew distDocker -PdockerImagePrefix=${IMAGE_PREFIX}
 
@@ -62,4 +61,7 @@ source $PACKAGESDIR/packageDeploy/packages/installCatalog.sh $AUTH_KEY $EDGE_HOS
 
 # Test
 cd $ROOTDIR/template-cloud-object-storage
+export __OW_API_KEY=$AUTH_KEY
+export __OW_API_HOST=$EDGE_HOST
+export __OW_NAMESPACE='_'
 ./gradlew :tests:test
