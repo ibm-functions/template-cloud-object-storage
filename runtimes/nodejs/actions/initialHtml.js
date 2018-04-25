@@ -6,7 +6,8 @@ async function main(args) {
   const actionName = '/_/cloud-object-storage/get-signed-url';
   const fileName = 'userProfileImg';
   const blocking = true;
-  const ow = openwhisk();
+  const options = { ignore_certs: 'true' };
+  const ow = openwhisk(options);
   const params = { key: fileName, operation: 'putObject' };
   const putUrl = ow.actions.invoke({ actionName, blocking, params });
   params.operation = 'getObject';
