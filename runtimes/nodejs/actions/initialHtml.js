@@ -3,9 +3,8 @@ const openwhisk = require('openwhisk');
 
 async function main(args) {
   // invoke the COS get_signed_url action to get URLs for uploading and reading files.
-  const namespace = process.env.__OW_NAMESPACE;
-  const actionName = `/${namespace}/cloud-object-storage/get-signed-url`;
-  const fileName = `userProfileImg`;
+  const actionName = '/_/cloud-object-storage/get-signed-url';
+  const fileName = 'userProfileImg';
   const blocking = true;
   const ow = openwhisk();
   const params = { key: fileName, operation: 'putObject' };
