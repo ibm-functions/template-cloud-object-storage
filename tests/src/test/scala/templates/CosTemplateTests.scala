@@ -22,7 +22,6 @@ import org.junit.runner.RunWith
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.junit.JUnitRunner
 import common.{TestHelpers, Wsk, WskProps, WskTestHelpers}
-import java.io._
 
 import common.TestUtils.RunResult
 import common.rest.WskRest
