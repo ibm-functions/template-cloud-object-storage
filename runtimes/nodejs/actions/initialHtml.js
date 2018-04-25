@@ -37,7 +37,7 @@ async function main(args) {
     console.log(err);
     throw err;
   }
-  return getHtml(results[0].response.result.url, results[1].response.result.url)
+  return getHtml(results[0].response.result.body, results[1].response.result.body)
 }
 
 function getHtml(theSignedUrlPut, theSignedUrlGet) {
