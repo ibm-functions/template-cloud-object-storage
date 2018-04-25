@@ -3,16 +3,7 @@ project:
   packages:
     $PACKAGE_NAME:
       actions:
-        form-completed:
-          function: actions/formCompleteHtml.js
-          runtime: nodejs:8
-        handle-form:
-          function: actions/handleForm.js
-          runtime: nodejs:8
         initial-html:
           function: actions/initialHtml.js
           runtime: nodejs:8
           web-export: true
-      sequences:
-        upload-a-file-sequence:
-          actions: handle-form, cloud-object-storage/object-write, form-completed
