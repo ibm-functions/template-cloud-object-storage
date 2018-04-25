@@ -4,15 +4,32 @@ const openwhisk = require('openwhisk');
 async function main(args) {
   // invoke the COS get_signed_url action to get URLs for uploading and reading files.
   const namespace = process.env.__OW_NAMESPACE;
-  const actionName = `/${namespace}/cloud-object-storage/get-signed-url`;
+  const getSignedUrlAction = `/${namespace}/cloud-object-storage/client-get-signed-url`;
+  const putCORSAction = `/${namespace}/cloud-object-storage/bucket-cors-put`;
   const fileName = 'userProfileImg';
   const blocking = true;
   // const options = { ignore_certs: true };
   const ow = openwhisk();
-  const params = { bucket: args.bucket, key: fileName, operation: 'putObject' };
-  const putUrl = ow.actions.invoke({ actionName, blocking, params });
+  const params = { bucket: args.bucket };
+  params.corsConfig = {
+    CORSRules: [{
+      AllowedHeaders: ['*'],
+      AllowedMethods: ['PUT', 'GET', 'DELETE'],
+      AllowedOrigins: ['*'],
+    }],
+  };
+  try {
+    await ow.actions.invoke({ actionName: putCORSAction, blocking, params });
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+  params.key = fileName;
+  params.operation = 'putObject';
+  delete params.corsConfig;
+  const putUrl = ow.actions.invoke({ actionName: getSignedUrlAction, blocking, params });
   params.operation = 'getObject';
-  const getUrl = ow.actions.invoke({ actionName, blocking, params });
+  const getUrl = ow.actions.invoke({ actionName: getSignedUrlAction, blocking, params });
   let results;
   try {
     results = await Promise.all([putUrl, getUrl]);
@@ -20,7 +37,7 @@ async function main(args) {
     console.log(err);
     throw err;
   }
-  return getHtml(results[0].response.result.data, results[1].response.result.data)
+  return getHtml(results[0].response.result.url, results[1].response.result.url)
 }
 
 function getHtml(theSignedUrlPut, theSignedUrlGet) {
