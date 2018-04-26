@@ -62,9 +62,8 @@ function getHtml(theSignedUrlPut, theSignedUrlGet) {
         <h4> Before uploading a file:</h4>
         <ul>
             <li>Create Cloud Object Storage HMAC Credentials ({hmac:true} on credential creation)</li>
-            <li>Create a bucket on Cloud Object Storage</li>
-            <li>Add the bucket name as a parameter to the get-signed-url action in the cloud-object-storage package</li>
-            <li>Add CORS policy to bucket</li>
+            <li>Create a bucket in Cloud Object Storage Service</li>
+            <li>Add the bucket name as a parameter to this action</li>
         </ul>
         <h4> Current Profile Image:</h4>
         <img src="https://via.placeholder.com/200x200" class="my-image" style="max-width: 200px; height: auto;"></img>
