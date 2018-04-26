@@ -1,8 +1,15 @@
-
+/*
+ * This action returns an html form for uploading a profile image to cloud object storage.
+ * Cloud Functions actions accept a single parameter, which must be a JSON object.
+ *
+ * In this case, the args variable will look like:
+ *   {
+ *     "bucket": "your COS bucket name",
+ *   }
+ */
 const openwhisk = require('openwhisk');
 
 async function main(args) {
-  // invoke the COS get_signed_url action to get URLs for uploading and reading files.
   const namespace = process.env.__OW_NAMESPACE;
   const getSignedUrlAction = `/${namespace}/cloud-object-storage/client-get-signed-url`;
   const putCORSAction = `/${namespace}/cloud-object-storage/bucket-cors-put`;
@@ -11,6 +18,8 @@ async function main(args) {
   // const options = { ignore_certs: true };
   const ow = openwhisk();
   const params = { bucket: args.bucket };
+
+  // set up cors configuration on the bucket
   params.corsConfig = {
     CORSRules: [{
       AllowedHeaders: ['*'],
@@ -24,6 +33,8 @@ async function main(args) {
     console.log(err);
     throw err;
   }
+
+  // get signed urls for 'GET' and 'PUT' operations on bucket
   params.key = fileName;
   params.operation = 'putObject';
   delete params.corsConfig;
@@ -37,6 +48,7 @@ async function main(args) {
     console.log(err);
     throw err;
   }
+  // return the html with signed urls populated
   return getHtml(results[0].response.result.body, results[1].response.result.body)
 }
 
