@@ -21,8 +21,9 @@ pushd runtimes/nodejs/
 PACKAGE_NAME=upload-a-photo wskdeploy
 popd
 ```
-Once the template is deployed, you can find the web address for the simple app by first going to the [actions](https://console.bluemix.net/openwhisk/actions) page, then clicking your action, and then clicking Endpoints.
-Under the Endpoints tab you will find a web action section with a link.  Copy this link without the .json ending, and paste it into your browser's address bar.
+Once the template is deployed, you can find the web address for the simple app by first going to the [actions](https://console.bluemix.net/openwhisk/actions) page, then clicking your action, and then clicking **Endpoints**.
+Under the **Endpoints** tab you will find a web action section with a link. Copy this link without the .json suffix, and paste it into your browser's address bar.
+
 
 You should now see a simple app for updating a user's profile picture.  Go check out the application code to see how everything is working together, and expand this into your own app!
 
