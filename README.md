@@ -8,7 +8,7 @@ You can use the Cloud Object Storage template to deploy IBM Cloud Functions asse
 The Cloud Object Storage template creates a form where users can upload a photo into a Cloud Object Storage bucket.  The template deploys a Web Action, *initialHtml*, that contains an html form, which passes its data to the *handleForm* Action.  When the form data is parsed by the *handleForm* Action, the image uploaded in the form is stored in the Cloud Object Storage instance. Since this is a public Web action, be aware that *any* user can post photos into your bucket.  For added security, you can [secure](https://console.bluemix.net/docs/openwhisk/openwhisk_webactions.html#securing-web-actions) the Web action.
 
 ### Prerequisites
-The template expects to find a `cloud-object-storage` package that contains an *object-write* function.  You can download and deploy the `cloud-object-storage` package from [here.](https://github.com/ibm-functions/package-cloud-object-storage)
+The template expects to find a `cloud-object-storage` package that contains a *client-get-signed-url* and a *bucket-cors-put* function.  You can download and deploy the `cloud-object-storage` package from [here.](https://github.com/ibm-functions/package-cloud-object-storage)
 
 Use the `wskdeploy` utility to deploy the template and package. In the future, `wskdeploy` will be integrated into a new `wsk` plug-in command `bx wsk deploy`.
 
@@ -21,6 +21,8 @@ pushd runtimes/nodejs/
 PACKAGE_NAME=upload-a-photo wskdeploy
 popd
 ```
+Once the template is deployed, you can find the web address for the simple app by first going to the [actions](https://console.bluemix.net/openwhisk/actions) page, then clicking your action, and then clicking Endpoints.
+Under the Endpoints tab you will find a web action tab with a link.  Copy this link without the .json ending, and paste it into your browser.
 
 ### Available Languages
 The `cloud-object-storage` template is available in Node.js.
