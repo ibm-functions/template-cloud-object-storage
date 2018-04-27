@@ -1,18 +1,46 @@
-
+/*
+ * This action returns an html form for uploading a profile image to cloud object storage.
+ * Cloud Functions actions accept a single parameter, which must be a JSON object.
+ *
+ * In this case, the args variable will look like:
+ *   {
+ *     "bucket": "your COS bucket name",
+ *   }
+ */
 const openwhisk = require('openwhisk');
 
 async function main(args) {
-  // invoke the COS get_signed_url action to get URLs for uploading and reading files.
   const namespace = process.env.__OW_NAMESPACE;
-  const actionName = `/${namespace}/cloud-object-storage/get-signed-url`;
+  const getSignedUrlAction = `/${namespace}/cloud-object-storage/client-get-signed-url`;
+  const putCORSAction = `/${namespace}/cloud-object-storage/bucket-cors-put`;
   const fileName = 'userProfileImg';
   const blocking = true;
   // const options = { ignore_certs: true };
   const ow = openwhisk();
-  const params = { bucket: args.bucket, key: fileName, operation: 'putObject' };
-  const putUrl = ow.actions.invoke({ actionName, blocking, params });
+  const params = { bucket: args.bucket };
+
+  // set up cors configuration on the bucket
+  params.corsConfig = {
+    CORSRules: [{
+      AllowedHeaders: ['*'],
+      AllowedMethods: ['PUT', 'GET', 'DELETE'],
+      AllowedOrigins: ['https://openwhisk.ng.bluemix.net'],
+    }],
+  };
+  try {
+    await ow.actions.invoke({ actionName: putCORSAction, blocking, params });
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+
+  // get signed urls for 'GET' and 'PUT' operations on bucket
+  params.key = fileName;
+  params.operation = 'putObject';
+  delete params.corsConfig;
+  const putUrl = ow.actions.invoke({ actionName: getSignedUrlAction, blocking, params });
   params.operation = 'getObject';
-  const getUrl = ow.actions.invoke({ actionName, blocking, params });
+  const getUrl = ow.actions.invoke({ actionName: getSignedUrlAction, blocking, params });
   let results;
   try {
     results = await Promise.all([putUrl, getUrl]);
@@ -20,7 +48,8 @@ async function main(args) {
     console.log(err);
     throw err;
   }
-  return getHtml(results[0].response.result.data, results[1].response.result.data)
+  // return the html with signed urls populated
+  return getHtml(results[0].response.result.body, results[1].response.result.body)
 }
 
 function getHtml(theSignedUrlPut, theSignedUrlGet) {
@@ -33,12 +62,11 @@ function getHtml(theSignedUrlPut, theSignedUrlGet) {
         <h4> Before uploading a file:</h4>
         <ul>
             <li>Create Cloud Object Storage HMAC Credentials ({hmac:true} on credential creation)</li>
-            <li>Create a bucket on Cloud Object Storage</li>
-            <li>Add the bucket name as a parameter to the get-signed-url action in the cloud-object-storage package</li>
-            <li>Add CORS policy to bucket</li>
+            <li>Create a bucket in the Cloud Object Storage Service</li>
+            <li>Add the bucket name as a parameter to this action</li>
         </ul>
         <h4> Current Profile Image:</h4>
-        <img src="http://via.placeholder.com/200x200" class="my-image" style="max-width: 200px; height: auto;"></img>
+        <img src="https://via.placeholder.com/200x200" class="my-image" style="max-width: 200px; height: auto;"></img>
         <h4> Upload a file:</h4>
         <form id="myform" enctype="multipart/form-data">
           <input id="theFile" type="file" name="body" required>

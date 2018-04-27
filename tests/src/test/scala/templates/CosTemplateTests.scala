@@ -54,7 +54,7 @@ class COSTemplateTests extends TestHelpers
     val objectWriteAction = binding + "/" + "object-write"
     val objectReadAction = binding + "/" + "object-read"
     val objectDeleteAction = binding + "/" + "object-delete"
-    val getSignedUrlAction = binding + "/" + "get-signed-url"
+    val getSignedUrlAction = binding + "/" + "client-get-signed-url"
     val deployAction = "/whisk.system/deployWeb/wskdeploy"
     val deployActionURL = s"https://${wskprops.apihost}/api/v1/web${deployAction}.http"
 
