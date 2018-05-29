@@ -15,9 +15,10 @@ async function main(args) {
   const putCORSAction = `/${namespace}/cloud-object-storage/bucket-cors-put`;
   const fileName = 'userProfileImg';
   const blocking = true;
-  // const options = { ignore_certs: true };
-  const ow = openwhisk();
   const params = { bucket: args.bucket };
+  const ignore_certs = args.ignore_certs ? args.ignore_certs : false
+  // Initialize the Openwhisk NPM package
+  const ow = openwhisk({ ignore_certs });
 
   // set up cors configuration on the bucket
   params.corsConfig = {
