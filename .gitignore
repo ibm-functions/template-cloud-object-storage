@@ -1,6 +1,7 @@
 # Tests
 /tests/build
 /tests/out
+/tests/credentials.json
 
 # Gradle
 .gradle
