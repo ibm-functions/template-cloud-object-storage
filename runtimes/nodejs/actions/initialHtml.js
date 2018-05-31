@@ -25,7 +25,7 @@ async function main(args) {
     CORSRules: [{
       AllowedHeaders: ['*'],
       AllowedMethods: ['PUT', 'GET', 'DELETE'],
-      AllowedOrigins: ['https://openwhisk.ng.bluemix.net'],
+      AllowedOrigins: ['*'],
     }],
   };
   try {
