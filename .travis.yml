@@ -15,4 +15,5 @@ before_install:
   -in tests/credentials.json.enc -out tests/credentials.json -d; fi'
 - "./tools/travis/setup.sh"
 script:
-- "./tools/travis/build.sh"
+- "./tools/travis/build.sh && ./tools/travis/deploy.sh && ./tools/travis/deploy_template.sh
+  && ./tools/travis/test.sh"
