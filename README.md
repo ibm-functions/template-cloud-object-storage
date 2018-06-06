@@ -15,10 +15,10 @@ Use the `wskdeploy` utility to deploy the template and package. In the future, `
 For now, you can download it from [here](https://github.com/apache/incubator-openwhisk-wskdeploy/releases), and add `wskdeploy` to your PATH.
 
 ### Deploying the Template
-After the `cloud-object-storage` package is deployed, use the `wskdeploy` tool to deploy the assets described in the `manifest.yaml` file. The `PACKAGE_NAME` value can be changed to your own package name.
+After the `cloud-object-storage` package is deployed, use the `wskdeploy` tool to deploy the assets described in the `manifest.yaml` file. The `PACKAGE_NAME` value can be changed to your own package name. The BUCKET is the bucket in your COS instance you want the template to use.
 ```
 pushd runtimes/nodejs/
-PACKAGE_NAME=upload-a-photo wskdeploy
+PACKAGE_NAME=upload-a-photo BUCKET=myBucket wskdeploy
 popd
 ```
 Once the template is deployed, you can find the web address of the simple app by first going to the [Actions](https://console.bluemix.net/openwhisk/actions) page, selecting your action, and then clicking **Endpoints**.
