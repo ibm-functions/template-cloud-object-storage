@@ -81,7 +81,7 @@ function getHtml(theSignedUrlPut, theSignedUrlGet) {
                   'Access-Control-Allow-Origin': '*',
                   'Access-Control-Allow-Methods': 'GET',
                 },
-                cache: false,
+                cache: 'no-cache',
                 processData: false,
                 contentType: false
             })
@@ -106,7 +106,7 @@ function getHtml(theSignedUrlPut, theSignedUrlGet) {
                   'Access-Control-Allow-Origin': '*',
                   'Access-Control-Allow-Methods': 'PUT',
                 },
-                cache: false,
+                cache: 'no-cache',
                 processData: false,
                 contentType: false
             })
