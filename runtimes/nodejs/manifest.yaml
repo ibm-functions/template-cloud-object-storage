@@ -5,8 +5,8 @@ project:
       inputs:
         bucket: $BUCKET
       actions:
-        initial-html:
-          function: actions/initialHtml.js
+        app:
+          function: actions/app.js
           runtime: nodejs:8
           web-export: true
 
