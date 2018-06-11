@@ -49,7 +49,7 @@ class CredentialsCosTemplateTests extends TestHelpers
 
   val deployTestRepo = "https://github.com/ibm-functions/template-cloud-object-storage"
   val packageTestRepo = "https://github.com/ibm-functions/package-cloud-object-storage"
-  val htmlAction = "initial-html"
+  val htmlAction = "app"
   val packageName = "myPackage"
   val binding = "cloud-object-storage"
   val objectWriteAction = s"${binding}/object-write"
