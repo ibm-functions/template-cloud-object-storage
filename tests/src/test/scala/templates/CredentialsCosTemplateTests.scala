@@ -108,7 +108,7 @@ class CredentialsCosTemplateTests extends TestHelpers
 
       res.statusCode shouldBe 200
       val htmlDom = res.body.asString
-      val urlParsingPattern = """(?<=fetch\(\').*(?=\'\,)""".r
+      val urlParsingPattern = """(?<=fetch\(\').*(?=\')""".r
       val urls = urlParsingPattern.findAllIn(htmlDom).toArray
 
       val (strippedGetUrl, queryParamsGet) = parseUrl(urls(0))
