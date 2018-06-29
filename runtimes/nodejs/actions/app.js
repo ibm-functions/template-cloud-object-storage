@@ -56,13 +56,10 @@ async function main(args) {
 function getHtml(theSignedUrlPut, theSignedUrlGet) {
   return html(
     `<html>
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      </head>
       <body onload="setCurrentProfileImage()">
         <h4> Before uploading a file:</h4>
         <ul>
-            <li>Create Cloud Object Storage HMAC Credentials ({hmac:true} on credential creation)</li>
+            <li>Create Cloud Object Storage HMAC Credentials ({HMAC:true} on credential creation)</li>
             <li>Create a bucket in the Cloud Object Storage Service</li>
             <li>Add the bucket name as a parameter to this action</li>
         </ul>
@@ -75,40 +72,21 @@ function getHtml(theSignedUrlPut, theSignedUrlGet) {
         <button onclick="getUrlAndUploadImage()"> Upload </button>
         <script>
           function setCurrentProfileImage() {
-            fetch('${theSignedUrlGet}', {
-                method: 'GET',
-                headers: {
-                  'Access-Control-Allow-Origin': '*',
-                  'Access-Control-Allow-Methods': 'GET',
-                },
-                cache: 'no-cache',
-                processData: false,
-                contentType: false
-            })
+            fetch('${theSignedUrlGet}')
             .then(response => response.blob())
             .then((response) => {
               if(response.type != 'application/xml') {
-                  var objectURL = URL.createObjectURL(response);
                   var myImage = document.querySelector('.my-image');
-                  myImage.src = objectURL;
+                  myImage.src = URL.createObjectURL(response);
               }
             })
           }
           function getUrlAndUploadImage() {
             const fileInput = document.getElementById('theFile');
             const file = fileInput.files[0];
-            const myform = document.getElementById('myform');
-            const fd = new FormData(myform);
             fetch('${theSignedUrlPut}', {
                 method: 'PUT',
                 body: file,
-                headers: {
-                  'Access-Control-Allow-Origin': '*',
-                  'Access-Control-Allow-Methods': 'PUT',
-                },
-                cache: 'no-cache',
-                processData: false,
-                contentType: false
             })
             .then((response) => {
               setCurrentProfileImage();
@@ -124,10 +102,7 @@ function getHtml(theSignedUrlPut, theSignedUrlGet) {
 function html(inputHtml) {
   return {
     statusCode: 200,
-    headers: {
-      'Content-Type': 'text/html',
-      'Cache-Control': 'max-age=300',
-    },
+    headers: { 'Content-Type': 'text/html' },
     body: inputHtml,
   };
 }
