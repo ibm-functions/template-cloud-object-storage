@@ -32,13 +32,9 @@ The web form will then retrieve back the image using the *setCurrentProfileImage
   You should now see a simple app for updating a user's profile picture. Go check out the application code to see how everything is working together, and expand this into your own app!
 
   ### Deploying from the IBM Cloud Functions UI:
-  1. To create a Template, go to [{{site.data.keyword.openwhisk_short}} in {{site.data.keyword.Bluemix_notm}}](https://console.bluemix.net/openwhisk/), and then click **Start Creating**.
+  1. To create this Template, go to the [**Upload Image** template](https://console.bluemix.net/openwhisk/create/template/upload-image) on the IBM Cloud Functions UI
 
-  2. Click **Quickstart Templates**.
-
-  3. Click **Upload Image**.
-
-  4. Next, provide a name for your package or use the provided default name `cos-image-upload` and click **Next**.
+  2. Next, provide a name for your package or use the provided default name `upload-image` and click **Next**.
 
    #### Depending on the Cloud Object Storage Package
 
@@ -51,9 +47,9 @@ The web form will then retrieve back the image using the *setCurrentProfileImage
    ****Important Note****
    In order for the COS Template to be deployed properly your COS instance should have HMAC keys present as well as an already existing bucket.  For information on creating HMAC keys refer to this documentation: [Create COS Service Credentials](https://console.bluemix.net/docs/services/cloud-object-storage/iam/service-credentials.html#service-credentials)
 
-  5. Once you input the information for your COS instance the **Deploy** button should be enabled and you can deploy the template. 
+  3. Once you input the information for your COS instance the **Deploy** button should be enabled and you can deploy the template. 
 
-  6. After the template deploys you should be on the **Code** page for the *app* Action. You can then click on the **Endpoints** tab in the lefthand navigation. Under the **Endpoints** tab you will find a web action section with a link. Copy this link without the .json suffix, and paste it into your browser's address bar. This will display the template's web form for you to interact with. 
+  4. After the template deploys you should be on the **Code** page for the *app* Action. You can then click on the **Endpoints** tab in the lefthand navigation. Under the **Endpoints** tab you will find a web action section with a link. Copy this link without the .json suffix, and paste it into your browser's address bar. This will display the template's web form for you to interact with. 
 
 ## Available Languages
 The `cloud-object-storage` template is available in Node.js.
