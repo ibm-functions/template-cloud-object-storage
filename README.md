@@ -45,11 +45,11 @@ The web form will then retrieve back the image using the *setCurrentProfileImage
    * **Input your own credentials**: Selecting this will prompt you to manually enter your own credentials for a COS instance
    * **Existing Instances**: If you already have any COS instances created they should be automatically populated in the dropdown. Clicking an existing instance will attempt to fetch the credentials as well as any Buckets existing on that instance
    ****Important Note****
-   In order for the COS Template to be deployed properly your COS instance should have HMAC keys present as well as an already existing bucket.  For information on creating HMAC keys refer to this documentation: [Create COS Service Credentials](https://console.bluemix.net/docs/services/cloud-object-storage/iam/service-credentials.html#service-credentials)
+   For the COS Template to be deployed properly, your COS instance should have HMAC keys present as well as an already existing bucket.  For information on creating HMAC keys refer to this documentation: [Create COS Service Credentials](https://console.bluemix.net/docs/services/cloud-object-storage/iam/service-credentials.html#service-credentials)
 
-  3. Once you input the information for your COS instance the **Deploy** button should be enabled and you can deploy the template. 
+  3. Once you input the information for your COS instance the **Deploy** button should be enabled, and you can deploy the template. 
 
-  4. After the template deploys you should be on the **Code** page for the *app* Action. You can then click on the **Endpoints** tab in the lefthand navigation. Under the **Endpoints** tab you will find a web action section with a link. Copy this link without the .json suffix, and paste it into your browser's address bar. This will display the template's web form for you to interact with. 
+  4. After the template deploys, you should be on the **Code** page for the *app* Action. You can then click on the **Endpoints** tab in the lefthand navigation. Under the **Endpoints** tab you will find a web action section with a link. Copy this link without the .json suffix, and paste it into your browser's address bar. This will display the template's web form for you to interact with. 
 
 ## Available Languages
 The `cloud-object-storage` template is available in Node.js.
