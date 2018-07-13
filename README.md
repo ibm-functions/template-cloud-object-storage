@@ -1,5 +1,4 @@
 # template-cloud-object-storage
-# WIP DO NOT USE IN PRODUCTION
 [![Build Status](https://travis-ci.org/ibm-functions/template-cloud-object-storage.svg?branch=master)](https://travis-ci.org/ibm-functions/template-cloud-object-storage)
 
 ## Overview
