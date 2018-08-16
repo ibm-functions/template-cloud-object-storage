@@ -47,7 +47,7 @@ class CredentialsCosTemplateTests extends TestHelpers
 
   // statuses for deployWeb
   val successStatus =
-    """"status":"success""""
+    """"status": "success""""
 
   val deployTestRepo = "https://github.com/ibm-functions/template-cloud-object-storage"
   val packageTestRepo = "https://github.com/ibm-functions/package-cloud-object-storage"
