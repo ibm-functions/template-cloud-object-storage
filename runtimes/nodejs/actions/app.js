@@ -9,19 +9,17 @@
  */
 const openwhisk = require('openwhisk');
 
-async function main(args) {
+async function main({ bucket, ignore_certs = false}) {
   const namespace = process.env.__OW_NAMESPACE;
   const getSignedUrlAction = `/${namespace}/cloud-object-storage/client-get-signed-url`;
   const putCORSAction = `/${namespace}/cloud-object-storage/bucket-cors-put`;
   const fileName = 'userProfileImg';
   const blocking = true;
-  const params = { bucket: args.bucket };
-  const ignore_certs = args.ignore_certs ? args.ignore_certs : false
+  const result = true;
   // Initialize the Openwhisk NPM package
   const ow = openwhisk({ ignore_certs });
-
   // set up cors configuration on the bucket
-  params.corsConfig = {
+  const corsConfig = {
     CORSRules: [{
       AllowedHeaders: ['*'],
       AllowedMethods: ['PUT', 'GET', 'DELETE'],
@@ -29,28 +27,32 @@ async function main(args) {
     }],
   };
   try {
-    await ow.actions.invoke({ actionName: putCORSAction, blocking, params });
+    await ow.actions.invoke({
+      actionName: putCORSAction, blocking,
+      params: { bucket, corsConfig }
+    });
+    // get signed urls for 'GET' and 'PUT' operations on bucket
+    const putUrl = await ow.actions.invoke({
+      actionName: getSignedUrlAction, blocking, result,
+      params: {
+        bucket: bucket,
+        key: fileName,
+        operation: 'putObject'
+      }
+    });
+    const getUrl = await ow.actions.invoke({
+      actionName: getSignedUrlAction, blocking, result,
+      params: {
+        bucket: bucket,
+        key: fileName,
+        operation: 'getObject'
+      }
+    });
+    return getHtml(putUrl.body, getUrl.body)
   } catch (err) {
     console.log(err);
     throw err;
   }
-
-  // get signed urls for 'GET' and 'PUT' operations on bucket
-  params.key = fileName;
-  params.operation = 'putObject';
-  delete params.corsConfig;
-  const putUrl = ow.actions.invoke({ actionName: getSignedUrlAction, blocking, params });
-  params.operation = 'getObject';
-  const getUrl = ow.actions.invoke({ actionName: getSignedUrlAction, blocking, params });
-  let results;
-  try {
-    results = await Promise.all([putUrl, getUrl]);
-  } catch (err) {
-    console.log(err);
-    throw err;
-  }
-  // return the html with signed urls populated
-  return getHtml(results[0].response.result.body, results[1].response.result.body)
 }
 
 function getHtml(theSignedUrlPut, theSignedUrlGet) {
