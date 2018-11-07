@@ -14,5 +14,5 @@ cd ${ROOTDIR}
 if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
   TERM=dumb ./gradlew :tests:test
 else
-  TERM=dumb ./gradlew :tests:test
+  TERM=dumb ./gradlew :tests:testWithoutCredentials
 fi
