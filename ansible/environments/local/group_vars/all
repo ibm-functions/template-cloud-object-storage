@@ -32,17 +32,10 @@ runtimes_manifest:
   defaultImageTag: "latest"
   runtimes:
     nodejs:
-    - kind: "nodejs:6"
+    - kind: "nodejs:10"
       default: true
       image:
-        name: "nodejs6action"
-        prefix: "openwhisk"
-        tag: "latest"
-      deprecated: false
-    - kind: "nodejs:8"
-      default: false
-      image:
-        name: "action-nodejs-v8"
+        name: "action-nodejs-v10"
         prefix: "ibmfunctions"
         tag: "latest"
       deprecated: false

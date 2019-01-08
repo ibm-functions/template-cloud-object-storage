@@ -65,9 +65,9 @@ class CredentialsCosTemplateTests extends TestHelpers
   val deployActionURL = s"https://${wskprops.apihost}/api/v1/web${deployAction}.http"
 
   //set parameters for deploy tests
-  val nodejs8RuntimePath = "runtimes/nodejs"
-  val nodejs8folder = "../runtimes/nodejs/actions"
-  val nodejs8kind = "nodejs:8"
+  val nodejsRuntimePath = "runtimes/nodejs"
+  val nodejsfolder = "../runtimes/nodejs/actions"
+  val nodejskind = "nodejs:10"
 
   val creds = TestUtils.getCredentials("cloud-object-storage")
   val __bx_creds = parseCredentials(creds)
@@ -90,7 +90,7 @@ class CredentialsCosTemplateTests extends TestHelpers
 
       // verify action exists as correct kind
       val testhtmlAction = wsk.action.get(nodejs8htmlAction)
-      verifyAction(testhtmlAction, nodejs8htmlAction, JsString(nodejs8kind))
+      verifyAction(testhtmlAction, nodejs8htmlAction, JsString(nodejskind))
 
       // update COS and template packages to have required parameters
       wsk.pkg.create(nodejs8Package, Map(
@@ -201,7 +201,7 @@ class CredentialsCosTemplateTests extends TestHelpers
     private def deployCOSPackage() = {
       makePostCallWithExpectedResult(JsObject(
         "gitUrl" -> JsString(packageTestRepo),
-        "manifestPath" -> JsString(nodejs8RuntimePath),
+        "manifestPath" -> JsString(nodejsRuntimePath),
         "wskApiHost" -> JsString(wskprops.apihost),
         "wskAuth" -> JsString(wskprops.authKey)
       ), successStatus, 200)
@@ -210,7 +210,7 @@ class CredentialsCosTemplateTests extends TestHelpers
     private def deployTemplate(packageName : JsString) = {
       makePostCallWithExpectedResult(JsObject(
         "gitUrl" -> JsString(deployTestRepo),
-        "manifestPath" -> JsString(nodejs8RuntimePath),
+        "manifestPath" -> JsString(nodejsRuntimePath),
         "envData" -> JsObject(
           "PACKAGE_NAME" -> packageName
         ),
