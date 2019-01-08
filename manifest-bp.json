@@ -6,8 +6,8 @@
   "url": "https://github.com/ibm-functions/template-cloud-object-storage",
   "runtimes": [
     {
-      "name": "Node.js 6",
-      "kind": "nodejs:6",
+      "name": "Node.js 10",
+      "kind": "nodejs:10",
       "type": "nodejs"
     },
   ],
