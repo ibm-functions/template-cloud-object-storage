@@ -7,6 +7,6 @@ project:
       actions:
         app:
           function: actions/app.js
-          runtime: nodejs:8
+          runtime: nodejs:10
           web-export: true
 
