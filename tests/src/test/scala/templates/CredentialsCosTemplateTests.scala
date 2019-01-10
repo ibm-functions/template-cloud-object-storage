@@ -75,25 +75,25 @@ class CredentialsCosTemplateTests extends TestHelpers
 
   behavior of "Cloud Object Storage Template"
 
-    // test to create the nodejs 8 cloud object storage template from github url.  Will use preinstalled folder.
-    it should "create the nodejs 8 cloud object storage template from github url" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
+    // test to create the nodejs 10 cloud object storage template from github url.  Will use preinstalled folder.
+    it should "create the nodejs 10 cloud object storage template from github url" in withAssetCleaner(wskprops) { (wp, assetHelper) =>
 
       // create unique asset names
       val timestamp: String = System.currentTimeMillis.toString
-      val nodejs8Package = packageName + timestamp
-      val nodejs8htmlAction = nodejs8Package + "/" + htmlAction
+      val nodejsPackage = packageName + timestamp
+      val nodejshtmlAction = nodejsPackage + "/" + htmlAction
 
       // post call to deploy COS package
       deployCOSPackage()
       // post call to deploy package to test deploy of manifest
-      deployTemplate(JsString(nodejs8Package))
+      deployTemplate(JsString(nodejsPackage))
 
       // verify action exists as correct kind
-      val testhtmlAction = wsk.action.get(nodejs8htmlAction)
-      verifyAction(testhtmlAction, nodejs8htmlAction, JsString(nodejskind))
+      val testhtmlAction = wsk.action.get(nodejshtmlAction)
+      verifyAction(testhtmlAction, nodejshtmlAction, JsString(nodejskind))
 
       // update COS and template packages to have required parameters
-      wsk.pkg.create(nodejs8Package, Map(
+      wsk.pkg.create(nodejsPackage, Map(
         "bucket" -> JsString(testBucket),
         "ignore_certs" -> JsBoolean(true)
       ), update = true, expectedExitCode = 0).stdout should include("updated package")
@@ -103,7 +103,7 @@ class CredentialsCosTemplateTests extends TestHelpers
       ), update = true, expectedExitCode = 0).stdout should include("updated package")
 
       // Invoke web action through CURL so we can get the html
-      val webActionUrl = s"https://${wskprops.apihost}/api/v1/web/${wsk.namespace.whois()}/$nodejs8htmlAction"
+      val webActionUrl = s"https://${wskprops.apihost}/api/v1/web/${wsk.namespace.whois()}/$nodejshtmlAction"
       val res = RestAssured.given()
         .config(RestAssured.config().sslConfig(new SSLConfig().relaxedHTTPSValidation()))
         .get(webActionUrl)
@@ -133,7 +133,7 @@ class CredentialsCosTemplateTests extends TestHelpers
       assert(getResponse.statusCode() == 200)
       getResponse.getBody.asString() should include(s"test text ${timestamp}")
 
-      wsk.action.delete(nodejs8htmlAction)
+      wsk.action.delete(nodejshtmlAction)
       wsk.action.delete(objectWriteAction)
       wsk.action.delete(objectReadAction)
       wsk.action.delete(objectDeleteAction)
@@ -141,7 +141,7 @@ class CredentialsCosTemplateTests extends TestHelpers
       wsk.action.delete(bucketCorsGetAction)
       wsk.action.delete(bucketCorsPutAction)
       wsk.action.delete(getSignedUrlAction)
-      wsk.pkg.delete(nodejs8Package)
+      wsk.pkg.delete(nodejsPackage)
       wsk.pkg.delete(binding)
     }
 
