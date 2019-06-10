@@ -19,15 +19,14 @@ package packages
 
 
 import com.google.gson.JsonObject
+import common.TestUtils.RunResult
+import common.rest.WskRestOperations
+import common.{TestHelpers, Wsk, WskActorSystem, WskProps, WskTestHelpers, _}
+import io.restassured.RestAssured
+import io.restassured.config.SSLConfig
 import org.junit.runner.RunWith
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.junit.JUnitRunner
-import common._
-import common.TestUtils.RunResult
-import common.{TestHelpers, Wsk, WskActorSystem, WskProps, WskTestHelpers}
-import common.rest.WskRestOperations
-import com.jayway.restassured.RestAssured
-import com.jayway.restassured.config.SSLConfig
 import spray.json._
 
 import scala.collection.JavaConverters._
@@ -119,7 +118,7 @@ class CredentialsCosTemplateTests extends TestHelpers
       // Run the PUT Action
       verifyOptions(strippedPutUrl, queryParamsPut, "PUT")
       val putResponse =  (RestAssured.given()
-        .urlEncodingEnabled(false) queryParameters queryParamsPut.asJava)
+        .urlEncodingEnabled(false) queryParams queryParamsPut.asJava)
         .body(s"test text ${timestamp}")
         .put(strippedPutUrl)
       assert(putResponse.statusCode() == 200)
@@ -128,7 +127,7 @@ class CredentialsCosTemplateTests extends TestHelpers
       verifyOptions(strippedGetUrl, queryParamsGet, "GET")
       val getResponse = RestAssured.given()
         .urlEncodingEnabled(false)
-        .queryParameters(queryParamsGet.asJava)
+        .queryParams(queryParamsGet.asJava)
         .get(strippedGetUrl)
       assert(getResponse.statusCode() == 200)
       getResponse.getBody.asString() should include(s"test text ${timestamp}")
@@ -154,7 +153,7 @@ class CredentialsCosTemplateTests extends TestHelpers
     private def verifyOptions(url: String, queryParams : Map[String, _], methodType : String) = {
       val response =  RestAssured.given()
         .urlEncodingEnabled(false)
-        .queryParameters(queryParams.asJava)
+        .queryParams(queryParams.asJava)
         .header("Origin", s"https://${wskprops.apihost}")
         .header("Access-Control-Request-Method", methodType)
         .options(url)
